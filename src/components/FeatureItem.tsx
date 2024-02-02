@@ -29,7 +29,7 @@ const FeatureItem: React.FC<Props> = ({
     <div className={`p-4 md:p-12 flex flex-col items-center gap-8 ${className || ""}`}>
       {icon && IconMapping[icon]}
       {title && <h3 className="text-2xl font-bold text-center">{title}</h3>}
-      {children && <p>{children}</p>}
+      {children && <p className="text-center">{children}</p>}
     </div>
   );
 };

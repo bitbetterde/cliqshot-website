@@ -3,20 +3,20 @@ import { useCallback, useEffect } from "react";
 
 interface CarouselProps {
   images: string[];
+  className?: string;
 }
 
-
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
+const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const scrollPrev = useCallback(
     () => emblaApi && emblaApi.scrollPrev(),
     [emblaApi]
-  )
+  );
   const scrollNext = useCallback(
     () => emblaApi && emblaApi.scrollNext(),
     [emblaApi]
-  )
+  );
   useEffect(() => {
     if (emblaApi) {
       console.log(emblaApi.slideNodes());
@@ -26,7 +26,10 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const slideClasses = "flex-[0_0_100%] min-w-0";
 
   return (
-    <div className="overflow-hidden h-full w-full relative" ref={emblaRef}>
+    <div
+      className={`overflow-hidden h-full w-full relative ${className || ""}`}
+      ref={emblaRef}
+    >
       <div className="flex h-full">
         {images?.map((img, i) => (
           <div className={slideClasses} key={i}>
