@@ -1,15 +1,19 @@
 ---
-import "./base.css";
+import "../base.css";
+import CliqshotLogo from "../assets/cliqshot_logo.svg?react";
+import PeopleIllu from "../assets/illustrations/people.svg?react";
+import LinkButton from "../components/LinkButton";
+import FeatureItem from "../components/FeatureItem";
 const isProduction = import.meta.env.MODE === "production";
 ---
 
-<html lang="de">
+<html lang="de" class="h-full antialiased">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Cliqshot Photobox</title>
+    <title>Cliqshot Fotobox</title>
     {
       isProduction && (
         <script
@@ -20,9 +24,64 @@ const isProduction = import.meta.env.MODE === "production";
       )
     }
   </head>
-  <body>
-    <main>
-      <h1 class="text-5xl">Hello, React!</h1>
-    </main>
+  <body class="bg-champagne h-full grid-wrapper">
+    <div class="full-bleed absolute top-0 bg-black h-[20vh] w-full -z-10"></div>
+    <div class="grid grid-cols-1 sm:grid-cols-12 gap-x-4 gap-y-12 relative">
+      <div class="col-span-1 sm:col-start-4 sm:col-span-6 py-8">
+        <div class="flex flex-col gap-8 items-center max-w-2xl mx-auto">
+          <PeopleIllu className="w-[115%]" />
+          <div class="w-3/5 mx-auto flex flex-col gap-8 text-xl text-center">
+            <CliqshotLogo />Die smarte Photobox für eure Feiern, Sommerfeste,
+            Kundenevents, Jubiläen, Teambuilding, u.v.m.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-8 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div
+        class="bg-orange font-dela p-8 flex flex-col gap-12 text-4xl items-center justify-between"
+      >
+        <div>Early-Bird-Aktion</div>
+        <div
+          class="text-7xl font-sans font-bold flex flex-col gap-4 items-center"
+        >
+          <div class="text-white line-through text-3xl">299 €</div><div>
+            149 €
+          </div>
+        </div>
+        <div class="text-xs font-sans flex flex-col items-center gap-4">
+          <LinkButton href="#">Jetzt reservieren!</LinkButton>
+          <div class="text-center px-16">
+            Leihgebühr pro Event (72 Std.), keine zusätzlichen Kosten, first
+            come first serve, zeitlich begrenztes Angebot.
+          </div>
+        </div>
+      </div>
+      <div class="bg-black">SLIDESHOW</div>
+    </div>
+
+    <div class="lg:p-8 grid grid-cols-1 lg:grid-cols-4 md:gap-4 lg:gap-8">
+      <FeatureItem title="100% sorglose Verbindung" icon="satellite">
+        Einfach immer gut verbunden: Dank integriertem LTE-Modem, kein
+        Kabel/WLAN erforderlich. Eine schnelle und datenschutz-freundliche
+        Cloud-Lösung stellt die Bilder direkt online.
+      </FeatureItem>
+      <FeatureItem title="Instant Access für alle!" icon="smartphone">
+        Alle Photobox-Nutzer:innen können via Smartphone sofort auf ihre Fotos
+        zugreifen, Bilder speichern und teilen. Kein Warten auf E-Mails oder
+        Abzüge, einfach den Moment festhalten und mitnehmen.
+      </FeatureItem>
+      <FeatureItem title="Höchste Bildqualität" icon="eye">
+        Erstklassiges spiegelloses Kamerasystem von Sony mit hochwertigem
+        Festbrennweite-Objektiv. Die Nutzer:innen erhalten alle Bilder auch als
+        RAW-Dateien - keine Kompromisse bei der Qualität.
+      </FeatureItem>
+      <FeatureItem title="Live Setup Service" icon="light">
+        Mit unserer Remote-Software richten wir die Kamera vor Ort mit dir ein.
+        So stellen wir sicher, dass Licht und Farben optimal auf die
+        indiviudellen räumlichen Gegebenheiten angepasst sind.
+      </FeatureItem>
+    </div>
   </body>
 </html>

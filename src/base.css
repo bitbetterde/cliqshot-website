@@ -1,0 +1,25 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource/dela-gothic-one";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns:
+      1fr
+      min(1440px, 100%)
+      1fr;
+  }
+
+  .grid-wrapper > * {
+    grid-column: 2;
+  }
+
+  .full-bleed {
+    width: 100%;
+    grid-column: 1 / 4;
+  }
+}
