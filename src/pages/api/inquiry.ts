@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   const data: { name: string, mail: string, description: string, date: string } = await request.json();
   const { MAILJET_API, MAILJET_PUBLIC_KEY, MAILJET_SECRET_KEY, INQUIRY_MAIL_FROM, INQUIRY_MAIL_TO } = import.meta.env;

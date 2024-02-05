@@ -13,9 +13,7 @@ export default defineConfig({
     }),
   ],
   output: "hybrid",
-  adapter: netlify({
-    edgeMiddleware: true,
-  }),
+  adapter: netlify(),
   vite: {
     plugins: [svgr()],
   },
