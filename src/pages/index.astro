@@ -1,12 +1,13 @@
 ---
 import "../base.css";
 import CliqshotLogo from "../assets/cliqshot_logo.svg?react";
+import CliqshotImpressumLogo from "../assets/cliqshot_logo_impressum.svg?react";
 import PeopleIllu from "../assets/illustrations/people.svg?react";
 import LinkButton from "../components/LinkButton";
 import FeatureItem from "../components/FeatureItem";
 import Carousel from "../components/Carousel.tsx";
-import Datepicker from "../components/Datepicker.tsx";
 import BookingForm from "../components/BookingForm";
+import { StarDecoration } from "../components/StarDecoration";
 
 const isProduction = import.meta.env.MODE === "production";
 ---
@@ -29,13 +30,29 @@ const isProduction = import.meta.env.MODE === "production";
     }
   </head>
   <body class="bg-champagne h-full grid-wrapper">
-    <div class="full-bleed absolute top-0 bg-black h-[20vh] w-full -z-10"></div>
+    <div class="full-bleed absolute top-0 bg-black h-[35vh] w-full -z-10"></div>
     <div class="grid grid-cols-1 sm:grid-cols-12 gap-x-4 gap-y-12 relative">
-      <div class="col-span-1 sm:col-start-4 sm:col-span-6 py-8">
+      <StarDecoration
+        className="absolute top-24 right-80 w-16 h-16 text-pink"
+        stroke={3}
+      />
+      <StarDecoration
+        className="absolute top-40 right-64 w-28 h-28 text-purple"
+        stroke={3}
+      />
+      <StarDecoration
+        className="absolute top-[820px] left-56 w-16 h-16 text-pink"
+        stroke={4}
+      />
+      <StarDecoration
+        className="absolute top-[700px] left-32 w-28 h-28 text-purple"
+        stroke={3}
+      />
+      <div class="col-span-1 sm:col-start-4 sm:col-span-6 pt-8 pb-20">
         <div
           class="flex flex-col gap-8 items-center max-w-2xl mx-auto overflow-x-hidden sm:overflow-x-auto"
         >
-          <PeopleIllu className="w-[115%] sm:w-full" />
+          <PeopleIllu className="w-[115%] sm:w-full z-10" />
           <div class="w-3/5 mx-auto flex flex-col gap-8 text-xl text-center">
             <CliqshotLogo />Die smarte Photobox für eure Feiern, Sommerfeste,
             Kundenevents, Jubiläen, Teambuilding, u.v.m.
@@ -44,7 +61,7 @@ const isProduction = import.meta.env.MODE === "production";
       </div>
     </div>
 
-    <div class="py-8 md:px-8 grid grid-cols-1 md:grid-cols-2 md:gap-8">
+    <div class="py-8 md:px-8 grid grid-cols-1 md:grid-cols-2 md:gap-8 z-10">
       <Carousel
         images={[
           "https://picsum.photos/id/237/1280/720",
@@ -101,11 +118,49 @@ const isProduction = import.meta.env.MODE === "production";
     <div class="grid grid-cols-12 gap-4 py-8">
       <div class="bg-black col-start-4 col-span-6 h-[400px]"></div>
     </div>
-    <div class="grid grid-cols-12 gap-4 py-8">
-      <div class="col-start-4 col-span-6">
-        <div class="flex gap-4">
-          <Datepicker client:only="react" />
-          <BookingForm />
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-8">
+      <div
+        class="col-span-1 md:col-start-4 px-4 md:px-0 md:col-span-6 text-center font-dela font-bold text-4xl"
+      >
+        Jetzt Buchung anfragen!
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 mb-12">
+      <div class="col-span-1 px-4 md:px-0 md:col-start-4 md:col-span-6">
+        <BookingForm client:only="react" />
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 relative" >
+      <div
+        class="col-span-1 px-4 md:px-0 md:col-start-4 md:col-span-6 flex"
+      >
+        <StarDecoration
+          className="absolute top-48 right-16 w-16 h-16 text-orange"
+          stroke={3}
+        />
+        <StarDecoration
+          className="absolute top-12 right-64 w-32 h-32 text-purple"
+          stroke={3}
+        />
+        <StarDecoration
+          className="absolute top-24 left-24 w-16 h-16 text-pink"
+          stroke={4}
+        />
+        <StarDecoration
+          className="absolute top-40 left-56 w-28 h-28 text-purple"
+          stroke={3}
+        />
+        <div class="mx-auto flex gap-8 mb-16 mt-64">
+          <CliqshotImpressumLogo className="h-24" /><div>
+            bitbetter GmbH<br />
+            040 33463362<br />
+            kontakt@cliqshot.de<br />
+            <a
+              href="https://bitbetter.de/#footer"
+              class="cursor-pointer underline"
+              target="_blank">Impressum</a
+            >
+          </div>
         </div>
       </div>
     </div>

@@ -17,6 +17,8 @@ export default {
       colors: {
         champagne: "#E4D5D5",
         orange: "#FF6224",
+        pink: "#FFACCC",
+        purple: "#9797FD"
       },
     },
   },

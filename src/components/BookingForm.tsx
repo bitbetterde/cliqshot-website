@@ -1,34 +1,112 @@
+import { useEffect, useState } from "react";
+import Datepicker from "./Datepicker.tsx";
+import LabelText from "./LabelText.tsx";
+
 interface Props {
   className?: string;
 }
 
-const BookingForm: React.FC<Props> = ({className}) => {
+interface FormData {
+  name: string;
+  mail: string;
+  description: string;
+  date: Date | string;
+}
+
+const BookingForm: React.FC<Props> = ({ className }) => {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    mail: "",
+    description: "",
+    date: "",
+  });
+
+  useEffect(() => {
+    console.log("Data", formData);
+  }, [formData]);
+
   return (
-    <form className="flex-1 flex flex-col gap-2">
-    <label className="block">
-      <span className="text-gray-700">Name</span>
-      <input
-        type="text"
-        className="form-input mt-1 block w-full"
-        placeholder="Max Mustermann"
+    <form
+      className={`flex gap-4 flex-col lg:flex-row ${className || ""}`}
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log("Hello", formData);
+      }}
+    >
+      <Datepicker
+        onSelectedDateChanged={(e) => {
+          setFormData((oldState) => ({
+            ...oldState,
+            date: e,
+          }));
+        }}
       />
-    </label>
-    <label className="block">
-      <span className="text-gray-700">E-Mail</span>
-      <input
-        type="email"
-        className="form-input mt-1 block w-full"
-        placeholder="max@mustermann.de"
-      />
-    </label>
-    <label className="block">
-      <span className="text-gray-700">Nachricht</span>
-      <textarea
-        className="form-textarea mt-1 block w-full h-full"
-        placeholder="Enter some long form content."
-      ></textarea>
-    </label>
-  </form>
+      <div className="flex-1 flex flex-col gap-2">
+        <label className="block">
+          <LabelText>Name</LabelText>
+          <input
+            type="text"
+            className="mt-1 block w-full border-0 focus:ring-orange"
+            placeholder="Max Mustermann"
+            value={formData.name}
+            name="name"
+            id="name"
+            onChange={(e) => {
+              e?.target?.value != undefined &&
+                setFormData((oldState) => ({
+                  ...oldState,
+                  name: e?.target?.value,
+                }));
+            }}
+            required
+          />
+        </label>
+        <label className="block">
+          <LabelText>E-Mail</LabelText>
+          <input
+            type="email"
+            className="mt-1 block w-full border-0 focus:ring-orange"
+            placeholder="max@mustermann.de"
+            name="mail"
+            id="mail"
+            value={formData.mail}
+            onChange={(e) => {
+              e?.target?.value != undefined &&
+                setFormData((oldState) => ({
+                  ...oldState,
+                  mail: e?.target?.value,
+                }));
+            }}
+            required
+          />
+        </label>
+        <label className="block flex-1">
+          <LabelText>Beschreibung</LabelText>
+          <textarea
+            rows={3}
+            className="mt-1 block w-full h-auto border-0 focus:ring-orange overflow-hidden"
+            placeholder="Um was für eine Veranstaltung handelt es sich?"
+            name="description"
+            id="description"
+            value={formData.description}
+            onChange={(e) => {
+              e?.target?.value != undefined &&
+                setFormData((oldState) => ({
+                  ...oldState,
+                  description: e?.target?.value,
+                }));
+            }}
+            required
+          ></textarea>
+        </label>
+        <button
+          type="submit"
+          className="flex font-inter font-semibold w-full items-center justify-center gap-2 py-6 px-5 text-base text-white bg-orange hover:bg-orange/45"
+        >
+          Anfragen!
+        </button>
+      </div>
+    </form>
   );
 };
 
