@@ -17,11 +17,6 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
     () => emblaApi && emblaApi.scrollNext(),
     [emblaApi]
   );
-  useEffect(() => {
-    if (emblaApi) {
-      console.log(emblaApi.slideNodes());
-    }
-  }, [emblaApi]);
 
   const slideClasses = "flex-[0_0_100%] min-w-0";
 

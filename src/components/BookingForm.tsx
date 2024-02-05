@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Datepicker from "./Datepicker.tsx";
 import LabelText from "./LabelText.tsx";
 
@@ -18,20 +18,25 @@ const BookingForm: React.FC<Props> = ({ className }) => {
     name: "",
     mail: "",
     description: "",
-    date: "",
+    date: new Date(),
   });
 
-  useEffect(() => {
-    console.log("Data", formData);
-  }, [formData]);
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const response = await fetch("/api/inquiry", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (data.message) {
+      console.log("Response", data);
+    }
+  }
 
   return (
     <form
       className={`flex gap-4 flex-col lg:flex-row ${className || ""}`}
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log("Hello", formData);
-      }}
+      onSubmit={submit}
     >
       <Datepicker
         onSelectedDateChanged={(e) => {
