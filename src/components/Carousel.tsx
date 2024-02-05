@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 interface CarouselProps {
   images: string[];
