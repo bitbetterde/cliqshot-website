@@ -1,5 +1,5 @@
 @import "@fontsource-variable/inter";
-@import "@fontsource/dela-gothic-one";
+@import "@fontsource/dela-gothic-one/latin-400.css";
 
 @tailwind base;
 @tailwind components;
