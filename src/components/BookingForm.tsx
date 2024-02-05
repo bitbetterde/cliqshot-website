@@ -45,6 +45,7 @@ const BookingForm: React.FC<Props> = ({ className }) => {
     <form
       className={`flex gap-4 flex-col lg:flex-row ${className || ""}`}
       onSubmit={submit}
+      id="inquiry"
     >
       <Datepicker
         onSelectedDateChanged={(e) => {
