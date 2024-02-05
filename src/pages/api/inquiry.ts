@@ -1,16 +1,26 @@
 import type { APIRoute } from "astro";
+import escape from 'validator/lib/escape';
+
+interface FormData {
+  date: string, name: string, mail: string, description: string
+}
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  const data: { name: string, mail: string, description: string, date: string } = await request.json();
+
+  const data: FormData = await request.json()
+
   const { MAILJET_API, MAILJET_PUBLIC_KEY, MAILJET_SECRET_KEY, INQUIRY_MAIL_FROM, INQUIRY_MAIL_TO } = import.meta.env;
 
   if (!MAILJET_SECRET_KEY || !MAILJET_PUBLIC_KEY || !INQUIRY_MAIL_FROM || !INQUIRY_MAIL_TO || !MAILJET_API) {
     console.error("Missing Mailjet credentials or E-Mail settings in environment variables")
   }
 
-  const { name, mail, description, date } = data;
+  const name = escape(data.name);
+  const mail = escape(data.mail);
+  const date = escape(data.date);
+  const description = escape(data.description);
 
   const formattedDate = new Date(date).toLocaleDateString('de-DE', {
     weekday: 'long',
@@ -53,13 +63,15 @@ export const POST: APIRoute = async ({ request }) => {
     ]
   };
 
-  const req = await fetch(MAILJET_API, {
+  const mailjetRequest = await fetch(MAILJET_API, {
     method: "POST", body: JSON.stringify(body), headers: {
       "Content-Type": "application/json", "Authorization": 'Basic ' + Buffer.from(MAILJET_PUBLIC_KEY + ":" + MAILJET_SECRET_KEY).toString('base64')
     }
   })
-  console.log("Mailjet Response", await req.json());
-  if (req.status == 200) {
+  const mailjetRequestJson = await mailjetRequest.json();
+  console.log("Mailjet Response", mailjetRequestJson);
+
+  if (mailjetRequest.status == 200 && mailjetRequestJson?.["Messages"]?.[0].Status === "success") {
 
     return new Response(
       JSON.stringify({
@@ -76,3 +88,5 @@ export const POST: APIRoute = async ({ request }) => {
     { status: 500 }
   );
 };
+
+export { };  

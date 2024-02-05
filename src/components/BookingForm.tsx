@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import Datepicker from "./Datepicker.tsx";
 import LabelText from "./LabelText.tsx";
+import CheckIcon from "../assets/icons/check.svg?react";
 
 interface Props {
   className?: string;
@@ -14,6 +15,10 @@ interface FormData {
 }
 
 const BookingForm: React.FC<Props> = ({ className }) => {
+  const [isBusy, setIsBusy] = useState(false);
+  const [submissionWasSuccess, setSubmissionWasSuccess] = useState<
+    boolean | null
+  >();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     mail: "",
@@ -22,14 +27,17 @@ const BookingForm: React.FC<Props> = ({ className }) => {
   });
 
   async function submit(e: FormEvent<HTMLFormElement>) {
+    setIsBusy(true);
     e.preventDefault();
     const response = await fetch("/api/inquiry", {
       method: "POST",
       body: JSON.stringify(formData),
     });
-    const data = await response.json();
-    if (data.message) {
-      console.log("Response", data);
+    setIsBusy(false);
+    if (response.status == 200) {
+      setSubmissionWasSuccess(true);
+    } else {
+      setSubmissionWasSuccess(false);
     }
   }
 
@@ -45,6 +53,7 @@ const BookingForm: React.FC<Props> = ({ className }) => {
             date: e,
           }));
         }}
+        disabled={isBusy || Boolean(submissionWasSuccess)}
       />
       <div className="flex-1 flex flex-col gap-2">
         <label className="block">
@@ -56,6 +65,7 @@ const BookingForm: React.FC<Props> = ({ className }) => {
             value={formData.name}
             name="name"
             id="name"
+            disabled={isBusy || Boolean(submissionWasSuccess)}
             onChange={(e) => {
               e?.target?.value != undefined &&
                 setFormData((oldState) => ({
@@ -74,6 +84,7 @@ const BookingForm: React.FC<Props> = ({ className }) => {
             placeholder="max@mustermann.de"
             name="mail"
             id="mail"
+            disabled={isBusy || Boolean(submissionWasSuccess)}
             value={formData.mail}
             onChange={(e) => {
               e?.target?.value != undefined &&
@@ -93,6 +104,7 @@ const BookingForm: React.FC<Props> = ({ className }) => {
             placeholder="Um was für eine Veranstaltung handelt es sich?"
             name="description"
             id="description"
+            disabled={isBusy || Boolean(submissionWasSuccess)}
             value={formData.description}
             onChange={(e) => {
               e?.target?.value != undefined &&
@@ -106,9 +118,20 @@ const BookingForm: React.FC<Props> = ({ className }) => {
         </label>
         <button
           type="submit"
-          className="flex font-inter font-semibold w-full items-center justify-center gap-2 py-6 px-5 text-base text-white bg-orange hover:bg-orange/45"
+          className="flex font-inter font-semibold w-full items-center justify-center gap-2 py-6 px-5 text-base text-white bg-orange hover:bg-orange/45 disabled:bg-orange/45"
+          disabled={isBusy || Boolean(submissionWasSuccess)}
         >
-          Anfragen!
+          {isBusy && <span className="loader w-3 h-3"></span>}
+          {submissionWasSuccess == null && "Anfrage abschicken!"}
+          {submissionWasSuccess && submissionWasSuccess != null && (
+            <>
+              <CheckIcon className="h-6 w-6 text-white"/>
+              Anfrage erfolgreich abgeschickt!
+            </>
+          )}
+          {!submissionWasSuccess &&
+            submissionWasSuccess != null &&
+            "Fehler. Bitte erneut probieren."}
         </button>
       </div>
     </form>

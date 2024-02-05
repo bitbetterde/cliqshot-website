@@ -4,6 +4,7 @@ import LabelText from "./LabelText";
 interface Props {
   className?: string;
   onSelectedDateChanged: (date: Date) => void;
+  disabled?: boolean;
 }
 
 const theme = {
@@ -47,7 +48,7 @@ const theme = {
         base: "grid lg:w-64 w-full grid-cols-7",
         item: {
           base: "block flex-1 cursor-pointer border-0 text-center text-sm font-semibold leading-9 text-gray-900 hover:bg-gray-100 ",
-          selected: "bg-orange text-white hover:text-black",
+          selected: "bg-orange hover:bg-orange/80 text-white hover:text-black",
           disabled: "text-gray-500",
         },
       },
@@ -85,22 +86,32 @@ const theme = {
   },
 };
 
-const Datepicker: React.FC<Props> = ({ className, onSelectedDateChanged }) => {
+const Datepicker: React.FC<Props> = ({
+  className,
+  onSelectedDateChanged,
+  disabled,
+}) => {
   return (
-    <label>
-      <LabelText>Termin</LabelText>
+    <div className={className}>
+      <label htmlFor={"datepicker"}>
+        <LabelText>Termin</LabelText>
+      </label>
       <FlowbiteDatepicker
         showClearButton={false}
         showTodayButton={false}
+        disabled={disabled}
         theme={theme}
         language="de-DE"
         weekStart={1}
         minDate={new Date()}
         inline
         onSelectedDateChanged={onSelectedDateChanged}
-        className={`mt-1 ${className || ""}`}
+        className={`mt-1 ${disabled ? "pointer-events-none" : ""} ${
+          className || ""
+        }`}
+        id="datepicker"
       />
-    </label>
+    </div>
   );
 };
 
