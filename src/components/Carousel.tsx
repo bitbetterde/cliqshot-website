@@ -27,10 +27,17 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
       ref={emblaRef}
     >
       <div className="flex h-full">
+        {/* <div className={slideClasses}>
+          <img
+            className="object-cover h-full w-auto"
+            src={images[0]}
+            alt="Your alt text"
+          />
+        </div> */}
         {images?.map((img, i) => (
           <div className={slideClasses} key={i}>
             <img
-              className="object-cover h-full"
+              className="object-cover h-full w-auto"
               src={img}
               alt="Your alt text"
             />
@@ -55,7 +62,11 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const NavButton: React.FC<ButtonProps> = ({ flipped, onClick, disabled }) => {
+export const NavButton: React.FC<ButtonProps> = ({
+  flipped,
+  onClick,
+  disabled,
+}) => {
   return (
     <button
       className="h-auto w-auto bg-white/40 p-4 rounded-full text-white/75 hover:bg-white/60"
