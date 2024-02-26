@@ -27,13 +27,6 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
       ref={emblaRef}
     >
       <div className="flex h-full">
-        {/* <div className={slideClasses}>
-          <img
-            className="object-cover h-full w-auto"
-            src={images[0]}
-            alt="Your alt text"
-          />
-        </div> */}
         {images?.map((img, i) => (
           <div className={slideClasses} key={i}>
             <img
