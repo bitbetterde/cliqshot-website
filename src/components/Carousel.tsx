@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 interface CarouselProps {
   images: string[];
@@ -9,14 +9,15 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
+  const scrollPrev = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const slideClasses = "flex-[0_0_100%] min-w-0";
 
@@ -51,14 +52,16 @@ export default Carousel;
 interface ButtonProps {
   flipped?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-export const NavButton: React.FC<ButtonProps> = ({ flipped, onClick }) => {
+export const NavButton: React.FC<ButtonProps> = ({ flipped, onClick, disabled }) => {
   return (
     <button
       className="h-auto w-auto bg-white/40 p-4 rounded-full text-white/75 hover:bg-white/60"
       type="button"
       onClick={onClick}
+      disabled={disabled}
     >
       <svg
         className={`h-8 w-8 ${flipped ? "rotate-180" : ""}`}
