@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 interface CarouselProps {
   images: string[];
@@ -30,7 +30,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
         {images?.map((img, i) => (
           <div className={slideClasses} key={i}>
             <img
-              className="object-cover h-full w-auto"
+              className="object-cover w-auto aspect-video"
               src={img}
               alt="Your alt text"
             />
