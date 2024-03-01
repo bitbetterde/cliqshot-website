@@ -19,7 +19,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
     emblaApi.scrollNext();
   }, [emblaApi]);
 
-  const slideClasses = "flex-[0_0_100%] min-w-0";
+  const slideClasses = "flex-[0_0_100%] min-w-0 aspect-video";
 
   return (
     <div
@@ -30,7 +30,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, className }) => {
         {images?.map((img, i) => (
           <div className={slideClasses} key={i}>
             <img
-              className="object-cover w-auto aspect-video"
+              className="object-cover w-auto"
               src={img}
               alt="Your alt text"
             />
