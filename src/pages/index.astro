@@ -129,12 +129,10 @@ const isProduction = import.meta.env.MODE === "production";
       </FeatureItem>
     </div>
 
-    <div class="grid grid-cols-12 gap-4 py-8">
-      <div class="bg-black col-start-4 col-span-6 h-[400px]">
-        <video controls width="100%">
-          <source src="/images/product/video.webm" type="video/webm" />
-        </video>
-      </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 lg:py-8">
+      <video controls width="100%" class="lg:col-start-4 lg:col-span-6">
+        <source src="/images/product/video.webm" type="video/webm" />
+      </video>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-8">
       <div
