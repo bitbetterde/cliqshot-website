@@ -29,6 +29,10 @@ const isProduction = import.meta.env.MODE === "production";
       )
     }
   </head>
+  <script>
+    const vidEl = document.querySelector("video");
+    if (vidEl) vidEl.volume = 0.5;
+  </script>
   <body class="bg-champagne h-full grid-wrapper">
     <div
       class="full-bleed absolute top-0 bg-black h-[50vw] sm:h-[25vw] md:h-[15vw] w-full -z-10"
@@ -130,7 +134,7 @@ const isProduction = import.meta.env.MODE === "production";
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 lg:py-8">
-      <video controls poster="images/product/cliqshot-video-poster.jpg" width="100%" class="lg:col-start-4 lg:col-span-6" onclick="this.play()">
+      <video controls poster="images/product/cliqshot-video-poster.jpg" width="100%" class="lg:col-start-4 lg:col-span-6">
         <source src="/images/product/video.mp4" type="video/mp4" />
       </video>
     </div>
